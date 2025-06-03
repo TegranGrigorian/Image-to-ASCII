@@ -8,11 +8,11 @@ impl ASCIIUtils {
     pub fn convert_image_to_ascii(image: Result<DynamicImage, String>) -> Result<String, String> {
         let img = image.map_err(|e| e.to_string())?;
         
-        // Get image dimensions
+        //image dim
         let width = img.width();
         let height = img.height();
         
-        // Pre-allocate string with appropriate capacity
+        //efficency final boss
         let capacity = (width * height + height) as usize;
         let mut ascii_art = String::with_capacity(capacity);
 
@@ -30,7 +30,7 @@ impl ASCIIUtils {
     }
 
     fn map_brightness_to_ascii(brightness: u32) -> char {
-        // ASCII characters from dark to light
+        //Map brightness to ASCII
         const ASCII_CHARS: [char; 10] = ['@', '%', '#', '*', '+', '=', '-', ':', '.', ' '];
         let idx = (brightness as f32 / 255.0 * (ASCII_CHARS.len() as f32 - 1.0)).round() as usize;
         ASCII_CHARS[idx]

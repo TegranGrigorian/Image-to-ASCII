@@ -15,12 +15,11 @@ impl FileUtil {
     pub fn write_txt_file(output_path: &str, content: &str) -> Result<(), String> {
         let path = Path::new(output_path);
         
-        // Create parent directories if they don't exist
         if let Some(parent) = path.parent() {
             std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
         }
-        
-        // Use BufWriter for more efficient writing
+
+        //use a buffer for more efficient writing
         let file = File::create(output_path).map_err(|e| e.to_string())?;
         let mut writer = BufWriter::new(file);
         writer.write_all(content.as_bytes()).map_err(|e| e.to_string())?;
@@ -32,7 +31,7 @@ impl FileUtil {
     pub fn resize_image_for_ascii(image: DynamicImage) -> DynamicImage {
         // Target dimensions for VGA text mode
         let target_width = 80;
-        let target_height = 25; // Using exactly 25 rows for VGA text mode
+        let target_height = 25; //Using exactly 25 rows for VGA text mode
 
         image.resize_exact(
             target_width, 
